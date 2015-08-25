@@ -195,9 +195,11 @@ class GetTaxResult // extends BaseResult
 	 /**
      * Gets the Tax broken down by individual {@link TaxLine}.
      *
-     * @return taxLines
+     * @return TaxLine[]
      */
-	public function getTaxLines()  {return Utils::EnsureIsArray($this->TaxLines->TaxLine); }
+	public function getTaxLines()  {
+	    return (isset($this->TaxLines->TaxLine) ? Utils::EnsureIsArray($this->TaxLines->TaxLine) : []);
+	}
 	
 	/**
      * TotalTaxCalculated indicates the total tax calculated by AvaTax. This is usually the same as the TotalTax, except when a tax override amount is specified.
@@ -211,9 +213,11 @@ class GetTaxResult // extends BaseResult
 	 * TaxSummary is now returned when GetTaxRequest.DetailLevel == DetailLevel.Line in addition to DetailLevel.Summary.
 	 * It is not returned for DetailLevel.Document or DetailLevel.TaxDetail. 
 	 *
-	 * @return ArrayOfTaxDetail
+	 * @return TaxDetail[]
 	 */
-	public function getTaxSummary()	{return Utils::EnsureIsArray($this->TaxSummary->TaxDetail);}
+	public function getTaxSummary()	{
+        return (isset($this->TaxSummary->TaxDetail) ? Utils::EnsureIsArray($this->TaxSummary->TaxDetail) : []);	    
+	}
 	
 	public function getTaxLine($lineNo)
 	{
@@ -258,8 +262,9 @@ class GetTaxResult // extends BaseResult
     public function getResultCode() { return $this->ResultCode; }
 	/**
 	* Accessor
-	* @return array
+	* @return Message[]
 	*/
-    public function getMessages() { return Utils::EnsureIsArray($this->Messages->Message); }
-    
+    public function getMessages() { 
+        return (isset($this->Messages->Message) ? Utils::EnsureIsArray($this->Messages->Message) : []);	    
+    }
 }
